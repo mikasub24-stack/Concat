@@ -1,0 +1,68 @@
+# Mika Studio: every finished desktop build, published.
+#
+# When build-app.yml finishes a run started by a push to main, this takes
+# whatever installers that run made and puts them on one release,
+# `latest-build`, replacing the last one. A release's files can be
+# downloaded by anyone with the link, without signing in to GitHub, unlike
+# a run's artifacts. Platforms that failed are simply absent.
+name: Publish the latest build
+
+on:
+  workflow_run:
+    workflows: ["Build app"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: publish-latest-build
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.event.workflow_run.event == 'push' || github.event.workflow_run.event == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: bundles
+          pattern: MikaStudio-*
+          merge-multiple: true
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          files=(bundles/*)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "The build made no installers; nothing to publish."
+            exit 0
+          fi
+          ls -l bundles
+          (cd bundles && sha256sum * > SHA256SUMS)
+          notes="Bản build mới nhất của Mika Studio, từ commit ${SHA:0:7}.
+
+          - Windows: \`MikaStudio-…-windows-x86_64-setup.exe\` (hoặc \`.msi\`)
+          - macOS: \`…-macos-arm64.dmg\` (chip Apple) hoặc \`…-macos-x86_64.dmg\` (chip Intel)
+          - Linux: \`.deb\`, \`.rpm\`, \`.AppImage\`
+
+          Bản build chưa có chữ ký số: trên Windows bấm **More info › Run anyway** nếu SmartScreen chặn.
+          Mika Studio dựa trên [Concat](https://github.com/jub0t/concat) (AGPL-3.0)."
+          gh release delete latest-build --yes --cleanup-tag || true
+          uploads=()
+          for f in bundles/*; do [ -f "$f" ] && uploads+=("$f"); done
+          gh release create latest-build "${uploads[@]}" \
+            --target "$SHA" \
+            --prerelease \
+            --title "Mika Studio – bản build mới nhất" \
+            --notes "$notes"
