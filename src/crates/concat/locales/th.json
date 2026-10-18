@@ -508,6 +508,8 @@
   "speech.theSelectedClipsVoice": "เสียงพูดของคลิปที่เลือก",
   "speech.typeNarrationReadAloud": "พิมพ์บทพากย์ที่จะอ่านออกเสียง…",
   "speech.useSampleVoice": "ใช้เสียงตัวอย่าง",
+  "speech.vietnamese": "เวียดนาม",
+  "speech.vietnameseVoiceFast": "เสียงภาษาเวียดนาม · เร็ว",
   "speech.voice": "เสียง",
   "speech.voiceAddedTimeline": "เพิ่มเสียงพูดลงไทม์ไลน์แล้ว",
   "speech.voiceFrom": "เสียงจาก",

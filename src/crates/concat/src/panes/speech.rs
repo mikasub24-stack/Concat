@@ -47,6 +47,8 @@ const DEFAULT_VOICE: i32 = 3;
 const DEFAULT_POCKET_VOICE: i32 = 1000;
 /// The default Chatterbox voice: the same recording, read by Chatterbox.
 const DEFAULT_CHATTERBOX_VOICE: i32 = 2000;
+/// The default Piper voice: the Vietnamese one.
+const DEFAULT_PIPER_VOICE: i32 = 3000;
 /// The speeds a voice can be asked for, as the rate multiplier the sheet's
 /// slider runs over; 1 is the voice's own.
 const SPEEDS: (f32, f32) = (0.5, 2.0);
@@ -63,6 +65,7 @@ fn reading_pace(family: Family) -> f32 {
         Family::Kokoro => 0.35,
         Family::Pocket => 0.3,
         Family::Chatterbox => 1.6,
+        Family::Piper => 0.15,
     }
 }
 
@@ -358,7 +361,8 @@ impl SpeechPane {
             .per_unit
             .unwrap_or(reading_pace(self.family) / CHARS_PER_SECOND / self.rate());
         let mut plan = vec![(Stage::Loading, load)];
-        if self.family != Family::Kokoro {
+        // Only the families that read in a recording read one first.
+        if matches!(self.family, Family::Pocket | Family::Chatterbox) {
             plan.push((Stage::Reading, 0.3));
         }
         plan.push((Stage::Working, chars * per_char));
@@ -442,7 +446,7 @@ impl SpeechPane {
     /// speakers.
     fn sample_voice(&self) -> Option<i32> {
         match self.family {
-            Family::Kokoro => None,
+            Family::Kokoro | Family::Piper => None,
             Family::Pocket => Some(POCKET_CLONE),
             Family::Chatterbox => Some(CHATTERBOX_CLONE),
         }
@@ -504,6 +508,7 @@ impl SpeechPane {
             Family::Kokoro => DEFAULT_VOICE,
             Family::Pocket => DEFAULT_POCKET_VOICE,
             Family::Chatterbox => DEFAULT_CHATTERBOX_VOICE,
+            Family::Piper => DEFAULT_PIPER_VOICE,
         };
         wanted
             .and_then(|id| offered.iter().position(|voice| voice.id == id))
@@ -537,6 +542,7 @@ impl SpeechPane {
                 Family::Kokoro => t("speech.builtInSpeakersFast"),
                 Family::Pocket => t("speech.anyVoiceRecording"),
                 Family::Chatterbox => t("speech.studioVoiceSlow"),
+                Family::Piper => t("speech.vietnameseVoiceFast"),
             })
             .map(SharedString::from)
             .collect()
@@ -585,8 +591,10 @@ impl SpeechPane {
             text: self.text.as_str().into(),
             voice: self.voice as i32,
             model: self.model as i32,
+            // Piper is laid out as Kokoro is: a voice of the model's own,
+            // a speed and a pause.
             family: match self.family {
-                Family::Kokoro => 0,
+                Family::Kokoro | Family::Piper => 0,
                 Family::Pocket => 1,
                 Family::Chatterbox => 2,
             },
@@ -677,6 +685,7 @@ fn voice_label(name: &str) -> (String, String) {
         Some('i') => t("speech.italian"),
         Some('j') => t("speech.japanese"),
         Some('p') => t("speech.portuguese"),
+        Some('v') => t("speech.vietnamese"),
         Some('z') => t("speech.chinese"),
         _ => String::new(),
     };
@@ -725,6 +734,9 @@ mod tests {
         assert!(detail.contains("American"));
         assert!(detail.contains("female"));
         assert_eq!(voice_label("nova").0, "Nova");
+        let (title, detail) = voice_label("vf_vais");
+        assert_eq!(title, "Vais");
+        assert!(detail.contains("Vietnamese") && detail.contains("female"));
         assert_eq!(voice_label("pocket_bria").0, "Bria");
         assert!(voice_label("pocket_bria").1.contains("Pocket"));
         assert!(voice_label("pocket_clone").0.contains("clip"));

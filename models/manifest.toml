@@ -262,3 +262,16 @@ bytes = 487601967
 sha256 = "1be3a9b2063867b937e64e2ec7483364a79917e157fa98c5d94b5c1fffea987b"
 licence = "MIT"
 upstream = "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-small.bin"
+
+# Mika Studio's Vietnamese voice: Piper's vi_VN vais1000 medium, as
+# sherpa-onnx converts and packages it. One northern female speaker,
+# trained on the VAIS-1000 corpus, which the voice's model card lists as
+# CC-BY-4.0. Not on Concat's mirror: the app falls back to the upstream.
+[[model]]
+id = "vits-piper-vi_VN-vais1000-medium"
+family = "tts"
+file = "vits-piper-vi_VN-vais1000-medium.tar.bz2"
+bytes = 67154040
+sha256 = "fa1367710767d36ed5cf13b4a449e20c35ffd12791c2e47c2e64142bfa55551a"
+licence = "CC-BY-4.0"
+upstream = "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-vi_VN-vais1000-medium.tar.bz2"

@@ -168,6 +168,16 @@ package stamps a Perth watermark on what it speaks; the ONNX pipeline
 carries no such step and Concat adds none, which MIT permits and which
 anyone passing the sound off as a person's should know is not there.
 
+Mika Studio's Vietnamese voice is Piper's vi_VN "vais1000" medium voice
+(https://huggingface.co/rhasspy/piper-voices/tree/main/vi/vi_VN/vais1000/medium,
+Piper by the Rhasspy and Open Home Foundation projects, MIT), as converted
+and packaged in the sherpa-onnx releases. It was trained on the VAIS-1000
+Vietnamese Speech Synthesis Corpus
+(https://ieee-dataport.org/documents/vais-1000-vietnamese-speech-synthesis-corpus),
+which the voice's model card lists under Creative Commons Attribution 4.0
+(CC-BY-4.0, https://creativecommons.org/licenses/by/4.0/). It is downloaded
+on demand from the sherpa-onnx releases and never bundled with the app.
+
 ## ONNX Runtime
 
 The cutout models run on Microsoft's ONNX Runtime

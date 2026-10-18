@@ -508,6 +508,8 @@
   "speech.theSelectedClipsVoice": "Голос выбранного клипа",
   "speech.typeNarrationReadAloud": "Введите текст, который нужно прочитать вслух…",
   "speech.useSampleVoice": "Голос из образца",
+  "speech.vietnamese": "Вьетнамский",
+  "speech.vietnameseVoiceFast": "Вьетнамский голос · быстро",
   "speech.voice": "Голос",
   "speech.voiceAddedTimeline": "Голос добавлен на таймлайн",
   "speech.voiceFrom": "Голос из",
