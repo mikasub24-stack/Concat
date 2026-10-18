@@ -513,7 +513,10 @@ fn save_to_photos(path: &Path) -> Result<String, String> {
         status = rx.recv().unwrap_or(0);
     }
     if status != 3 && status != 4 {
-        return Err("Mika Studio may not add to Photos; allow it under Settings, Mika Studio, Photos".into());
+        return Err(
+            "Mika Studio may not add to Photos; allow it under Settings, Mika Studio, Photos"
+                .into(),
+        );
     }
     let url = NSURL::from_file_path(path).ok_or("the export's path is not a file URL")?;
     let change = RcBlock::new(move || {

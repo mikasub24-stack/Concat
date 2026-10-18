@@ -388,13 +388,19 @@ mod tests {
             location_on("ios", desktop(), home),
             "/home/Documents/Mika Studio"
         );
-        assert_eq!(location_on("ios", None, home), "/home/Documents/Mika Studio");
+        assert_eq!(
+            location_on("ios", None, home),
+            "/home/Documents/Mika Studio"
+        );
         assert_eq!(location_on("android", None, home), "/home/Mika Studio");
         assert_eq!(
             PathBuf::from(location_on("macos", desktop(), home)),
             Path::new("/desk").join("Mika Studio")
         );
-        assert_eq!(location_on("linux", None, home), "/home/Desktop/Mika Studio");
+        assert_eq!(
+            location_on("linux", None, home),
+            "/home/Desktop/Mika Studio"
+        );
     }
 
     /// The next untitled name skips every folder already there, and starts
