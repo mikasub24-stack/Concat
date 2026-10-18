@@ -47,6 +47,10 @@ on:
   # the branch it is run on, and leaves the installers on the run's page
   # under Artifacts, without making a release.
   workflow_dispatch:
+  # Every push to main builds the desktops, so a change lands as
+  # installers on the run's page without anyone pressing a button.
+  push:
+    branches: [main]
   workflow_call:
     inputs:
       ref:
