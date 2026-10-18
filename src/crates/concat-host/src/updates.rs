@@ -38,6 +38,7 @@ use crate::models;
 /// build. CI names it at build time from the repository it builds in
 /// (`MIKA_STUDIO_REPO`, set to `github.repository`); a local build without
 /// it has nowhere to look, and its update check simply finds nothing.
+#[allow(clippy::manual_unwrap_or, clippy::manual_unwrap_or_default)]
 pub const REPO: &str = match option_env!("MIKA_STUDIO_REPO") {
     Some(repo) => repo,
     None => "",
