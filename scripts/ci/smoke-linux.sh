@@ -145,10 +145,10 @@ inside() {
     "$deb" xvfb xauth libgl1-mesa-dri mesa-vulkan-drivers fonts-dejavu-core > /dev/null
 
   say "concat --version (the package)"
-  HOME=$(fresh_home) expect_ok "concat --version from the .deb" 60 concat --version
+  HOME=$(fresh_home) expect_ok "mika-studio --version from the .deb" 60 mika-studio --version
   say "concat --smoke (the package)"
   HOME=$(fresh_home) expect_ok "concat --smoke from the .deb" 180 \
-    xvfb-run -a -s "-screen 0 1920x1080x24" concat --smoke
+    xvfb-run -a -s "-screen 0 1920x1080x24" mika-studio --smoke
 
   # No FUSE in a container: the AppImage unpacks itself and runs.
   export APPIMAGE_EXTRACT_AND_RUN=1

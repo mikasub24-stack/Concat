@@ -13,6 +13,9 @@
 ; build (which also installs on ARM PCs, under emulation), arm64 for the
 ; native one. Suffix is the bundle's word for it, which names the file.
 
+#ifndef Homepage
+  #define Homepage "https://github.com/jub0t/Concat"
+#endif
 #ifndef Version
   #error Version is required
 #endif
@@ -32,23 +35,23 @@
 [Setup]
 ; One id for the life of the product, so an install over an older one is
 ; an upgrade and not a second copy.
-AppId={{7B1E5C3A-3B9E-4F0B-9C6D-2F1D0C0A0C47}
-AppName=Concat
+AppId={{5489DBBC-6B90-49C7-8A9C-C9A1C7679F68}
+AppName=Mika Studio
 AppVersion={#Version}
-AppVerName=Concat {#Version}
-AppPublisher=Concat contributors
-AppPublisherURL=https://github.com/jub0t/Concat
-AppSupportURL=https://github.com/jub0t/Concat/issues
-AppUpdatesURL=https://github.com/jub0t/Concat/releases
-DefaultDirName={autopf}\Concat
-DefaultGroupName=Concat
+AppVerName=Mika Studio {#Version}
+AppPublisher=Mika Studio
+AppPublisherURL={#Homepage}
+AppSupportURL={#Homepage}/issues
+AppUpdatesURL={#Homepage}/releases
+DefaultDirName={autopf}\Mika Studio
+DefaultGroupName=Mika Studio
 DisableProgramGroupPage=yes
 LicenseFile=..\..\LICENSE
 OutputDir={#Out}
-OutputBaseFilename=Concat-{#Version}-windows-{#Suffix}-setup
+OutputBaseFilename=MikaStudio-{#Version}-windows-{#Suffix}-setup
 SetupIconFile=..\icons\concat.ico
 UninstallDisplayIcon={app}\concat.ico
-UninstallDisplayName=Concat
+UninstallDisplayName=Mika Studio
 Compression=lzma2/max
 SolidCompression=yes
 WizardStyle=modern
@@ -108,8 +111,8 @@ Source: "{#Stage}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs crea
 Source: "..\icons\concat.ico"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
-Name: "{autoprograms}\Concat"; Filename: "{app}\concat.exe"; IconFilename: "{app}\concat.ico"
-Name: "{autodesktop}\Concat"; Filename: "{app}\concat.exe"; IconFilename: "{app}\concat.ico"; Tasks: desktopicon
+Name: "{autoprograms}\Mika Studio"; Filename: "{app}\concat.exe"; IconFilename: "{app}\concat.ico"
+Name: "{autodesktop}\Mika Studio"; Filename: "{app}\concat.exe"; IconFilename: "{app}\concat.ico"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\concat.exe"; Description: "{cm:LaunchProgram,Concat}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\concat.exe"; Description: "{cm:LaunchProgram,Mika Studio}"; Flags: nowait postinstall skipifsilent
