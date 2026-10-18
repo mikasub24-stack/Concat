@@ -43,6 +43,10 @@ name: Build app
 # The six targets are a matrix so one fails without taking the rest down;
 # `fail-fast` is off for the same reason.
 on:
+  # The Run workflow button on the Actions page: builds every desktop from
+  # the branch it is run on, and leaves the installers on the run's page
+  # under Artifacts, without making a release.
+  workflow_dispatch:
   workflow_call:
     inputs:
       ref:
