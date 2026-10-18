@@ -21,6 +21,8 @@
   "captions.transcribing": "กำลังถอดเสียง",
   "captions.typeWordsPutScreen": "พิมพ์ข้อความที่จะแสดงบนจอ…",
   "captions.useVoiceFromTimeline": "ใช้เสียงพูดจากไทม์ไลน์",
+  "captions.translateToEnglish": "แปลเป็นภาษาอังกฤษ",
+  "captions.translateNeedsMultilingual": "ต้องใช้โมเดลหลายภาษา ที่ไม่มี .en ในชื่อ",
   "clipInspector.add": "เพิ่ม",
   "clipInspector.analysis": "การวิเคราะห์",
   "clipInspector.audioTrack": "แทร็กเสียง",

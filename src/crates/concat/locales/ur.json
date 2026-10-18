@@ -21,6 +21,8 @@
   "captions.transcribing": "ٹرانسکرائب ہو رہا ہے",
   "captions.typeWordsPutScreen": "اسکرین پر دکھانے کے لیے الفاظ لکھیں…",
   "captions.useVoiceFromTimeline": "ٹائم لائن کی آواز استعمال کریں",
+  "captions.translateToEnglish": "انگریزی میں ترجمہ کریں",
+  "captions.translateNeedsMultilingual": "کثیر لسانی ماڈل درکار ہے، جس کے نام میں .en نہ ہو۔",
   "clipInspector.add": "شامل کریں",
   "clipInspector.analysis": "تجزیہ",
   "clipInspector.audioTrack": "آڈیو ٹریک",

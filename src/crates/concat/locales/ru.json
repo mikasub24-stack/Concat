@@ -21,6 +21,8 @@
   "captions.transcribing": "Распознавание",
   "captions.typeWordsPutScreen": "Введите слова, которые появятся на экране…",
   "captions.useVoiceFromTimeline": "Использовать голос с таймлайна",
+  "captions.translateToEnglish": "Перевести на английский",
+  "captions.translateNeedsMultilingual": "Нужна многоязычная модель, без .en в названии.",
   "clipInspector.add": "Сложение",
   "clipInspector.analysis": "Анализ",
   "clipInspector.audioTrack": "Аудиодорожка",

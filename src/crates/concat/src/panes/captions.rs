@@ -48,6 +48,8 @@ pub enum CaptionsMsg {
     Close,
     /// The "Use voice from timeline" switch.
     VoiceToggled(bool),
+    /// The "Translate to English" switch.
+    TranslateToggled(bool),
     /// Row in the list of clips with sound.
     SourceChanged(i32),
     TextEdited(String),
@@ -97,6 +99,8 @@ pub struct CaptionsPane {
     pub text: String,
     /// Row in the installed transcriber list.
     pub model: usize,
+    /// Write the voice's words in English, whatever is spoken.
+    pub translate: bool,
     /// 0 bottom, 1 centre, 2 top.
     pub placement: usize,
     /// 0 small, 1 medium, 2 large.
@@ -136,6 +140,7 @@ impl CaptionsPane {
                     self.clip = sources.first().map(|source| source.id.clone());
                 }
             }
+            CaptionsMsg::TranslateToggled(on) => self.translate = on,
             CaptionsMsg::SourceChanged(index) => {
                 if let Some(source) = usize::try_from(index)
                     .ok()
@@ -230,6 +235,9 @@ impl CaptionsPane {
             from_voice,
             clip,
             model,
+            // Kept from the last time the sheet was open, like the model:
+            // someone translating one clip likely wants the next one too.
+            translate: self.translate,
             placement: 0,
             size: 1,
             timings: std::mem::take(&mut self.timings),
@@ -293,6 +301,9 @@ impl CaptionsPane {
             source_start: clip.source_start,
             window: clip.duration * clip.speed,
             model_id: model.clone(),
+            // An English-only model cannot translate, and the switch is
+            // disabled for one; held off here too so a run never claims it.
+            translate: self.translate && !english_only(&model),
         };
         let dirs = studio.host.dirs.clone();
         let transcriber = Arc::clone(&studio.host.transcriber);
@@ -361,6 +372,10 @@ impl CaptionsPane {
             source,
             text: self.text.as_str().into(),
             model: self.model as i32,
+            translate: self.translate,
+            can_translate: installed(&studio.settings.transcribers)
+                .get(self.model)
+                .is_some_and(|model| !english_only(&model.id)),
             placement: self.placement as i32,
             size: self.size as i32,
             running: self.running,
@@ -551,6 +566,12 @@ fn wrap_caption(sentence: &str) -> Vec<String> {
         lines.push(line);
     }
     lines
+}
+
+/// A transcriber that only knows English - "tiny.en", "base.en" - and so has
+/// no other language to translate from.
+fn english_only(model_id: &str) -> bool {
+    model_id.ends_with(".en")
 }
 
 #[cfg(test)]

@@ -21,6 +21,8 @@
   "captions.transcribing": "Розпізнавання",
   "captions.typeWordsPutScreen": "Введіть слова, які з’являться на екрані…",
   "captions.useVoiceFromTimeline": "Використати голос із часової шкали",
+  "captions.translateToEnglish": "Перекласти англійською",
+  "captions.translateNeedsMultilingual": "Потрібна багатомовна модель, без .en у назві.",
   "clipInspector.add": "Додати",
   "clipInspector.analysis": "Аналіз",
   "clipInspector.audioTrack": "Аудіодоріжка",

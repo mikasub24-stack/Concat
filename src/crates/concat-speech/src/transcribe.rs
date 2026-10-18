@@ -280,6 +280,11 @@ pub struct TranscribeRequest {
     pub window: f64,
     /// Which model to use, e.g. "base.en".
     pub model_id: String,
+    /// Write the captions in English whatever language is spoken. Whisper
+    /// translates as it transcribes; only a multilingual model can, so an
+    /// English-only one ignores it. Absent in a request is off.
+    #[serde(default)]
+    pub translate: bool,
 }
 
 struct LoadedModel {
@@ -490,6 +495,10 @@ impl Transcriber {
         } else {
             "en"
         }));
+        // Asked for English: whisper hears the spoken language and writes
+        // the English for it in the same pass. An English-only model has
+        // nothing to translate from, so the request is let go there.
+        params.set_translate(request.translate && context.is_multilingual());
         params.set_print_special(false);
         params.set_print_progress(false);
         params.set_print_realtime(false);
@@ -637,6 +646,7 @@ mod real_audio {
             source_start: 0.0,
             window: 30.0,
             model_id: "tiny.en".to_owned(),
+            translate: false,
         };
         let segments = transcriber
             .transcribe(&dirs, &request, |stage| eprintln!("{stage:?}"))

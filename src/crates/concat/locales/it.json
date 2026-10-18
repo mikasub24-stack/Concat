@@ -21,6 +21,8 @@
   "captions.transcribing": "Trascrizione in corso",
   "captions.typeWordsPutScreen": "Type the words to put on screen…",
   "captions.useVoiceFromTimeline": "Usa la voce dalla timeline",
+  "captions.translateToEnglish": "Traduci in inglese",
+  "captions.translateNeedsMultilingual": "Serve un modello multilingue, senza .en nel nome.",
   "clipInspector.add": "Somma",
   "clipInspector.analysis": "Analisi",
   "clipInspector.audioTrack": "Audio track",

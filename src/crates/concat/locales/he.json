@@ -21,6 +21,8 @@
   "captions.transcribing": "מתמלל",
   "captions.typeWordsPutScreen": "יש להקליד את המילים שיופיעו על המסך…",
   "captions.useVoiceFromTimeline": "שימוש בקול מציר הזמן",
+  "captions.translateToEnglish": "תרגום לאנגלית",
+  "captions.translateNeedsMultilingual": "נדרש מודל רב־לשוני, בלי .en בשמו.",
   "clipInspector.add": "הוספה",
   "clipInspector.analysis": "ניתוח",
   "clipInspector.audioTrack": "ערוץ שמע",

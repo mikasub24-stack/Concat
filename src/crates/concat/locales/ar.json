@@ -21,6 +21,8 @@
   "captions.transcribing": "جارٍ التفريغ النصي",
   "captions.typeWordsPutScreen": "اكتب الكلمات التي ستظهر على الشاشة…",
   "captions.useVoiceFromTimeline": "استخدام الصوت من المخطط الزمني",
+  "captions.translateToEnglish": "ترجمة إلى الإنجليزية",
+  "captions.translateNeedsMultilingual": "يتطلب نموذجًا متعدد اللغات، بدون .en في اسمه.",
   "clipInspector.add": "إضافة",
   "clipInspector.analysis": "التحليل",
   "clipInspector.audioTrack": "مسار الصوت",

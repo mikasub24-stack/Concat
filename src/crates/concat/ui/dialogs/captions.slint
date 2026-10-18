@@ -35,6 +35,10 @@ export struct CaptionsSheetData {
     text: string,
     /// Row in the installed transcriber list.
     model: int,
+    /// Write the voice's words in English, whatever is spoken.
+    translate: bool,
+    /// The chosen model can translate: it is not an English-only one.
+    can-translate: bool,
     /// 0 Bottom, 1 Centre, 2 Top
     placement: int,
     /// 0 Small, 1 Medium, 2 Large
@@ -66,6 +70,7 @@ export component CaptionsDialog inherits Modal {
     callback source-changed(index: int);
     callback text-edited(text: string);
     callback model-changed(index: int);
+    callback translate-toggled(on: bool);
     callback placement-changed(index: int);
     callback size-changed(index: int);
     callback begin();
@@ -144,6 +149,42 @@ export component CaptionsDialog inherits Modal {
                     placeholder: I18n.t("common.noneInstalled");
                     enabled: root.models.length > 0;
                     changed(index) => { root.model-changed(index); }
+                }
+            }
+
+            // Captions in English from any spoken language. Whisper does
+            // it in the same pass, so it costs no extra time; an
+            // English-only model has nothing to translate from, and says so.
+            HorizontalLayout {
+                spacing: 10px;
+
+                VerticalLayout {
+                    horizontal-stretch: 1;
+                    alignment: center;
+                    spacing: 2px;
+
+                    Text {
+                        text: I18n.t("captions.translateToEnglish");
+                        color: root.data.can-translate ? Theme.fg : Theme.fg-dim;
+                        font-size: Theme.fs;
+                        wrap: word-wrap;
+                    }
+
+                    if root.data.ready && !root.data.can-translate: Text {
+                        text: I18n.t("captions.translateNeedsMultilingual");
+                        color: Theme.fg-muted;
+                        font-size: Theme.fs-sm;
+                        wrap: word-wrap;
+                    }
+                }
+
+                VerticalLayout {
+                    alignment: center;
+                    Switch {
+                        checked: root.data.translate && root.data.can-translate;
+                        enabled: root.data.can-translate;
+                        toggled(on) => { root.translate-toggled(on); }
+                    }
                 }
             }
 

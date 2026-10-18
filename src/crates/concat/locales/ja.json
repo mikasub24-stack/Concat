@@ -21,6 +21,8 @@
   "captions.transcribing": "文字起こし中",
   "captions.typeWordsPutScreen": "画面に表示する言葉を入力…",
   "captions.useVoiceFromTimeline": "タイムラインの音声を使う",
+  "captions.translateToEnglish": "英語に翻訳",
+  "captions.translateNeedsMultilingual": "多言語モデルが必要です（名前に .en が付かないもの）。",
   "clipInspector.add": "加算",
   "clipInspector.analysis": "解析",
   "clipInspector.audioTrack": "オーディオトラック",

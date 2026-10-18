@@ -21,6 +21,8 @@
   "captions.transcribing": "正在轉錄",
   "captions.typeWordsPutScreen": "輸入要顯示在螢幕上的文字…",
   "captions.useVoiceFromTimeline": "使用時間軸中的語音",
+  "captions.translateToEnglish": "翻譯成英文",
+  "captions.translateNeedsMultilingual": "需要多語言模型，即名稱中不含 .en 的模型。",
   "clipInspector.add": "加入",
   "clipInspector.analysis": "分析",
   "clipInspector.audioTrack": "音訊軌道",

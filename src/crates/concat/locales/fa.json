@@ -21,6 +21,8 @@
   "captions.transcribing": "در حال رونویسی",
   "captions.typeWordsPutScreen": "متنی را که باید روی صفحه نمایش داده شود وارد کنید…",
   "captions.useVoiceFromTimeline": "استفاده از صدای خط زمان",
+  "captions.translateToEnglish": "ترجمه به انگلیسی",
+  "captions.translateNeedsMultilingual": "به مدل چندزبانه نیاز دارد، بدون .en در نامش.",
   "clipInspector.add": "افزودن",
   "clipInspector.analysis": "تحلیل",
   "clipInspector.audioTrack": "ترک صوتی",

@@ -21,6 +21,8 @@
   "captions.transcribing": "Transkripcija",
   "captions.typeWordsPutScreen": "Upišite riječi za prikaz na zaslonu…",
   "captions.useVoiceFromTimeline": "Koristi glas s vremenske crte",
+  "captions.translateToEnglish": "Prevedi na engleski",
+  "captions.translateNeedsMultilingual": "Potreban je višejezični model, bez .en u nazivu.",
   "clipInspector.add": "Dodaj",
   "clipInspector.analysis": "Analiza",
   "clipInspector.audioTrack": "Zvučna traka",
