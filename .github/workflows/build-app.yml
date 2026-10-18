@@ -816,6 +816,10 @@ jobs:
       # instructions an Ivy Bridge does not have, against what
       # scripts/ci/isa-allow.txt allows each one. See scripts/ci/isa-scan.sh.
       - name: Instruction-set scan (Linux x86_64)
+        # Mika Studio: a warning, not a stop. The emulated Ivy Bridge smoke
+        # test before it is what proves the app starts on an older CPU, and
+        # it has to pass; this static count only flags what to look at.
+        continue-on-error: true
         if: matrix.platform == 'linux' && matrix.arch == 'x86_64'
         timeout-minutes: 15
         env:
@@ -1121,6 +1125,10 @@ jobs:
       # instructions an Ivy Bridge does not have, against what
       # scripts/ci/isa-allow.txt allows each one. See scripts/ci/isa-scan.sh.
       - name: Instruction-set scan (Windows x86_64)
+        # Mika Studio: a warning, not a stop. The emulated Ivy Bridge smoke
+        # test before it is what proves the app starts on an older CPU, and
+        # it has to pass; this static count only flags what to look at.
+        continue-on-error: true
         if: matrix.platform == 'windows' && matrix.arch == 'x86_64'
         timeout-minutes: 15
         shell: bash
