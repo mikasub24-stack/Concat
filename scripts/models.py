@@ -28,6 +28,7 @@ except ModuleNotFoundError:
         import tomli as tomllib
     except ModuleNotFoundError:
         tomllib = None
+import os
 import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -52,22 +53,22 @@ TABLES = {
 # version to fill in. Installers and binaries, never an archive of a
 # folder - a person downloads the thing they run.
 BUNDLES = [
-    ("macos", "arm64", "dmg", "Concat-{v}-macos-arm64.dmg"),
-    ("macos", "x86_64", "dmg", "Concat-{v}-macos-x86_64.dmg"),
-    ("linux", "x86_64", "deb", "Concat-{v}-linux-x86_64.deb"),
-    ("linux", "x86_64", "rpm", "Concat-{v}-linux-x86_64.rpm"),
-    ("linux", "x86_64", "appimage", "Concat-{v}-x86_64.AppImage"),
-    ("linux", "x86_64", "pacman", "Concat-{v}-linux-x86_64.pkg.tar.zst"),
-    ("linux", "aarch64", "deb", "Concat-{v}-linux-aarch64.deb"),
-    ("linux", "aarch64", "rpm", "Concat-{v}-linux-aarch64.rpm"),
-    ("linux", "aarch64", "appimage", "Concat-{v}-aarch64.AppImage"),
-    ("linux", "aarch64", "pacman", "Concat-{v}-linux-aarch64.pkg.tar.zst"),
-    ("windows", "x86_64", "setup", "Concat-{v}-windows-x86_64-setup.exe"),
-    ("windows", "x86_64", "msi", "Concat-{v}-windows-x86_64.msi"),
-    ("windows", "aarch64", "setup", "Concat-{v}-windows-aarch64-setup.exe"),
-    ("windows", "aarch64", "msi", "Concat-{v}-windows-aarch64.msi"),
-    ("android", "arm64", "apk", "Concat-{v}-android-arm64.apk"),
-    ("ios", "arm64", "ipa", "Concat-{v}-ios-arm64.ipa"),
+    ("macos", "arm64", "dmg", "MikaStudio-{v}-macos-arm64.dmg"),
+    ("macos", "x86_64", "dmg", "MikaStudio-{v}-macos-x86_64.dmg"),
+    ("linux", "x86_64", "deb", "MikaStudio-{v}-linux-x86_64.deb"),
+    ("linux", "x86_64", "rpm", "MikaStudio-{v}-linux-x86_64.rpm"),
+    ("linux", "x86_64", "appimage", "MikaStudio-{v}-x86_64.AppImage"),
+    ("linux", "x86_64", "pacman", "MikaStudio-{v}-linux-x86_64.pkg.tar.zst"),
+    ("linux", "aarch64", "deb", "MikaStudio-{v}-linux-aarch64.deb"),
+    ("linux", "aarch64", "rpm", "MikaStudio-{v}-linux-aarch64.rpm"),
+    ("linux", "aarch64", "appimage", "MikaStudio-{v}-aarch64.AppImage"),
+    ("linux", "aarch64", "pacman", "MikaStudio-{v}-linux-aarch64.pkg.tar.zst"),
+    ("windows", "x86_64", "setup", "MikaStudio-{v}-windows-x86_64-setup.exe"),
+    ("windows", "x86_64", "msi", "MikaStudio-{v}-windows-x86_64.msi"),
+    ("windows", "aarch64", "setup", "MikaStudio-{v}-windows-aarch64-setup.exe"),
+    ("windows", "aarch64", "msi", "MikaStudio-{v}-windows-aarch64.msi"),
+    ("android", "arm64", "apk", "MikaStudio-{v}-android-arm64.apk"),
+    ("ios", "arm64", "ipa", "MikaStudio-{v}-ios-arm64.ipa"),
 ]
 
 
@@ -112,6 +113,15 @@ def hf_mirror(url: str) -> str | None:
 
 def asset_url(release: str, file: str) -> str:
     return f"https://github.com/{REPO}/releases/download/{release}/{file}"
+
+
+# Mika Studio's own bundles are published by the repository the release
+# workflow runs in, while the models stay on upstream Concat's mirror above.
+BUNDLE_REPO = os.environ.get("GITHUB_REPOSITORY") or REPO
+
+
+def bundle_url(release: str, file: str) -> str:
+    return f"https://github.com/{BUNDLE_REPO}/releases/download/{release}/{file}"
 
 
 def engine_id(model: dict) -> str:
@@ -335,7 +345,7 @@ def release_manifest(version: str, tag: str, bundles: pathlib.Path | None) -> di
         file = stem.format(v=version)
         entry = {
             "file": file,
-            "url": asset_url(tag, file),
+            "url": bundle_url(tag, file),
         }
         if bundles is not None:
             path = bundles / file
